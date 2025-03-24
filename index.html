@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VulcanoTracker - Collector for Torrent Trackers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark mb-5">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-fire brand-icon"></i>VulcanoTracker
+            </a>
+            <div class="ms-auto d-flex">
+                <div class="text-muted me-3">
+                    <small>Boost your torrent downloads</small>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-center mb-5">
+                    <h1 class="display-5 fw-bold"><span class="text-primary">Vulcano</span>Tracker</h1>
+                    <p class="lead">Collect and manage the best torrent trackers for optimal download speeds</p>
+                </div>
+                
+                <div class="card shadow">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="bi bi-lightning-charge-fill text-primary me-2"></i>
+                            Current Torrent Trackers
+                        </h5>
+                        <div class="position-relative">
+                            <button id="refreshBtn" class="btn btn-sm btn-outline-light">
+                                <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+                            </button>
+                            <div id="trackerCounter" class="badge-counter d-none">0</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p>These trackers are automatically updated from popular sources.</p>
+                        
+                        <div id="loadingIndicator" class="loader"></div>
+                        
+                        <div id="trackerContent" style="display: none;">
+                            <div class="tracker-list mb-3">
+                                <div id="trackersList"></div>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button id="copyAllBtn" class="btn btn-primary">
+                                    <i class="bi bi-clipboard me-1"></i> Copy All Trackers
+                                </button>
+                                <span id="updateTime" class="text-muted align-self-center"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-plus-circle-fill text-primary me-2"></i>
+                            Add Your Own Trackers
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Paste your own trackers below. Invalid trackers will be automatically filtered out.</p>
+                        <textarea id="customTrackers" class="form-control mb-3" style="height: 150px;" placeholder="Paste your trackers here (one per line or comma-separated)"></textarea>
+                        <button id="addCustomTrackersBtn" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i> Add to List
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-info-circle-fill text-primary me-2"></i>
+                            About Torrent Trackers
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-3">Torrent trackers help find peers in the BitTorrent network. Adding good trackers to your torrents can significantly speed up downloads.</p>
+                        <p class="mb-3 fw-medium">The trackers on this page are automatically updated from reliable sources such as:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>ngosang/trackerslist (best, all, udp, ip, http, https, ws)</li>
+                                    <li>XIU2/TrackersListCollection (best, all, aria2)</li>
+                                    <li>DeSireFire/animeTrackerList</li>
+                                    <li>CHEF-KOCH/RasPi-List</li>
+                                    <li>newtrackon.com</li>
+                                    <li>trackerslist.com</li>
+                                    <li>hezhijie0327/Trackerslist</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>abumalick/trackerslist</li>
+                                    <li>WDaan/trackerslist</li>
+                                    <li>divideee/trackerslist</li>
+                                    <li>Jorman/trackerslist</li>
+                                    <li>torrentykr/NYH</li>
+                                    <li>nkoneill/trackerslist</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <p class="mt-4 mb-3 fw-medium">Popular individual trackers:</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>opentrackr.org</li>
+                                    <li>torrentgalaxy.to</li>
+                                    <li>tracker.bt4g.com</li>
+                                    <li>1337.abcvg.info</li>
+                                    <li>tracker.foreverpirates.co</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>tracker.tamersunion.org</li>
+                                    <li>tracker.nitrix.me</li>
+                                    <li>tracker.lelux.fi</li>
+                                    <li>tracker.blazing.de</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="mb-0">
+                        <span class="fw-bold text-primary">VulcanoTracker</span> &copy; <span id="currentYear"></span> - All rights reserved
+                    </p>
+                    <p class="small text-muted">
+                        Built for faster torrent downloads
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="copiedToast" class="copied-toast">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        Copied to clipboard!
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
