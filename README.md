@@ -24,7 +24,7 @@ VulcanoTracker is a client-side web application that doesn't require server-side
 
 1. Download or clone the repository:
    ```
-   git clone https://github.com/your-username/VulcanoTracker.git
+   git clone https://github.com/VulcanoSoftware/VulcanoTracker.git
    ```
 
 2. Open `index.html` in your web browser.
